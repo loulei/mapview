@@ -39,9 +39,9 @@ public abstract class MultiTouchDrawable {
 
 	protected MultiTouchDrawable superDrawable = null;
 
-	protected static float gridSpacingX = 30;
+	protected static int gridSpacingX = 30;
 
-	protected static float gridSpacingY = 30;
+	protected static int gridSpacingY = 30;
 
 	protected Context ctx;
 
@@ -617,16 +617,16 @@ public abstract class MultiTouchDrawable {
 		}
 	}
 
-	public static void setGridSpacing(float gridSpacingX, float gridSpacingY) {
+	public static void setGridSpacing(int gridSpacingX, int gridSpacingY) {
 		MultiTouchDrawable.gridSpacingX = gridSpacingX;
 		MultiTouchDrawable.gridSpacingY = gridSpacingY;
 	}
 
-	public static float getGridSpacingX() {
+	public static int getGridSpacingX() {
 		return gridSpacingX;
 	}
 
-	public static float getGridSpacingY() {
+	public static int getGridSpacingY() {
 		return gridSpacingY;
 	}
 
