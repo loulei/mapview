@@ -75,7 +75,7 @@ public class MainActivity extends Activity implements RefreshableView {
 						int width = Integer.valueOf(et_width.getText().toString());
 						int height = Integer.valueOf(et_height.getText().toString());
 						System.out.println(width+"*"+height);
-						mapDrawable.setSize(width*GRID_SPAC_LEN, height*GRID_SPAC_LEN);
+						mapDrawable.setSize(width*GRID_SPAC_LEN*10, height*GRID_SPAC_LEN*10);
 					}
 				});
 				builder.setNegativeButton("Cancel", new AlertDialog.OnClickListener() {
