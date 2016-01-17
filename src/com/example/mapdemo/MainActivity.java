@@ -1,20 +1,22 @@
 package com.example.mapdemo;
 
-import com.example.mapdemo.view.CompassDrawable;
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ToggleButton;
+
+import com.example.mapdemo.view.CompassView;
 import com.example.mapdemo.view.MultiTouchDrawable;
 import com.example.mapdemo.view.MultiTouchView;
 import com.example.mapdemo.view.RefreshableView;
 import com.example.mapdemo.view.SiteMapDrawable;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.widget.LinearLayout;
-
 public class MainActivity extends Activity implements RefreshableView {
 	private MultiTouchView touchView;
 	private SiteMapDrawable mapDrawable;
-	private CompassDrawable compassDrawable;
-	private LinearLayout ll_bg;
+	private ToggleButton tgbtn_auto;
+	private CompassView compassview;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,17 +24,28 @@ public class MainActivity extends Activity implements RefreshableView {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		ll_bg = (LinearLayout) findViewById(R.id.ll_bg);
+		tgbtn_auto = (ToggleButton) findViewById(R.id.tgbtn_auto);
+		compassview = (CompassView) findViewById(R.id.compassview);
 		touchView = (MultiTouchView) findViewById(R.id.touchview);
 		MultiTouchDrawable.setGridSpacing(30.0F, 30.0F);
 		mapDrawable = new SiteMapDrawable(this, this);
 		mapDrawable.setAngleAdjustment(0.0F);
-		compassDrawable = new CompassDrawable(this, mapDrawable);
-		compassDrawable.setRelativePosition(mapDrawable.getWidth()/2, mapDrawable.getHeight()/2);
 		touchView.setRearrangable(false);
 		touchView.addDrawable(mapDrawable);
 		mapDrawable.load();
-//		mapDrawable.startAutoRotate();
+		compassview.start();
+		tgbtn_auto.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				// TODO Auto-generated method stub
+				if(isChecked){
+					mapDrawable.startAutoRotate();
+				}else{
+					mapDrawable.stopAutoRotate();
+				}
+			}
+		});
 	}
 
 	@Override
