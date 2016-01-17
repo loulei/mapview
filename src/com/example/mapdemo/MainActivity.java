@@ -33,6 +33,7 @@ public class MainActivity extends Activity implements RefreshableView {
 		touchView.setRearrangable(false);
 		touchView.addDrawable(mapDrawable);
 		mapDrawable.load();
+		compassview.setRefreshableView(this);
 		compassview.start();
 		tgbtn_auto.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			

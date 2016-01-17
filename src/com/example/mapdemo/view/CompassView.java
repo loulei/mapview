@@ -29,7 +29,9 @@ public class CompassView extends View implements CompassListener {
 	private Context ctx;
 
 	private float angle;
-
+	
+	private RefreshableView refreshableView;
+	
 	public CompassView(Context context) {
 		super(context);
 		this.ctx = context;
@@ -101,8 +103,18 @@ public class CompassView extends View implements CompassListener {
 		
 		if (Math.abs(this.angle - newAngle) > minAngleChange) {
 			this.angle=ToolBox.normalizeAngle(newAngle);
-			invalidate();
 		}
+		refreshableView.invalidate();
 	}
+
+	public RefreshableView getRefreshableView() {
+		return refreshableView;
+	}
+
+	public void setRefreshableView(RefreshableView refreshableView) {
+		this.refreshableView = refreshableView;
+	}
+
+
 
 }
