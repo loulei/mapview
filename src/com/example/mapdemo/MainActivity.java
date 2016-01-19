@@ -14,11 +14,13 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ToggleButton;
 
+import com.example.mapdemo.utils.DataReference;
 import com.example.mapdemo.view.CompassView;
 import com.example.mapdemo.view.MultiTouchDrawable;
 import com.example.mapdemo.view.MultiTouchView;
 import com.example.mapdemo.view.RefreshableView;
 import com.example.mapdemo.view.SiteMapDrawable;
+import com.example.mapdemo.view.UserDrawable;
 
 public class MainActivity extends Activity implements RefreshableView {
 	private MultiTouchView touchView;
@@ -26,6 +28,7 @@ public class MainActivity extends Activity implements RefreshableView {
 	private ToggleButton tgbtn_auto;
 	private CompassView compassview;
 	private Button btn_resize;
+	private UserDrawable userDrawable;
 	
 	private static final int GRID_SPAC_LEN = 30;
 	@Override
@@ -41,6 +44,13 @@ public class MainActivity extends Activity implements RefreshableView {
 		MultiTouchDrawable.setGridSpacing(GRID_SPAC_LEN, GRID_SPAC_LEN);
 		mapDrawable = new SiteMapDrawable(this, this);
 		mapDrawable.setAngleAdjustment(0.0F);
+		int width = DataReference.getInstance(getApplicationContext()).loadInt(DataReference.WIDTH);
+		int height = DataReference.getInstance(getApplicationContext()).loadInt(DataReference.HEIGHT);
+		userDrawable = new UserDrawable(this, mapDrawable);
+		userDrawable.setRelativePosition(mapDrawable.getWidth()/2, mapDrawable.getHeight()/2);
+		if(width > 0 && height > 0){
+			mapDrawable.setSize(width*GRID_SPAC_LEN*10, height*GRID_SPAC_LEN*10);
+		}
 		touchView.setRearrangable(false);
 		touchView.addDrawable(mapDrawable);
 		mapDrawable.load();
@@ -76,6 +86,8 @@ public class MainActivity extends Activity implements RefreshableView {
 						int height = Integer.valueOf(et_height.getText().toString());
 						System.out.println(width+"*"+height);
 						mapDrawable.setSize(width*GRID_SPAC_LEN*10, height*GRID_SPAC_LEN*10);
+						DataReference.getInstance(getApplicationContext()).saveData(DataReference.WIDTH, width);
+						DataReference.getInstance(getApplicationContext()).saveData(DataReference.HEIGHT, height);
 					}
 				});
 				builder.setNegativeButton("Cancel", new AlertDialog.OnClickListener() {
