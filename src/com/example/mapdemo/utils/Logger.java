@@ -13,7 +13,7 @@ public class Logger {
 
 	protected static String dateFormat = "yyyy.MM.dd HH:mm:ss.S";
 
-	protected String tag;
+	public static String tag;
 
 	protected static int loglevel=Log.WARN;
 	
